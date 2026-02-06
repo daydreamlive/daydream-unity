@@ -1,0 +1,22 @@
+{
+    "name": "com.livepeer.daydream",
+    "version": "0.1.0",
+    "displayName": "Daydream",
+    "description": "Real-time AI video transformation plugin for Unity using WebRTC (WHIP/WHEP)",
+    "unity": "6000.0",
+    "dependencies": {
+        "com.unity.webrtc": "3.0.0"
+    },
+    "samples": [
+        {
+            "displayName": "Demo Scene",
+            "description": "WASD camera controls with sample geometry. Requires Input System package.",
+            "path": "Samples~/Demo"
+        }
+    ],
+    "author": {
+        "name": "Livepeer",
+        "url": "https://daydream.live"
+    },
+    "license": "MIT"
+}
