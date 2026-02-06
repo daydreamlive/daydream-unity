@@ -20,6 +20,7 @@ public class Daydream : MonoBehaviour
 {
     [Header("API")]
     public string apiUrl = "https://api.daydream.live";
+    [Tooltip("Leave empty to use browser login (recommended). Set manually to skip login.")]
     public string apiKey = "";
 
     [Header("Model")]
@@ -88,6 +89,7 @@ public class Daydream : MonoBehaviour
     public Texture OutputTexture => whepClient?.ReceivedTexture;
 
     // Internal
+    private DaydreamAuth auth;
     private DaydreamApi api;
     private DaydreamWhipClient whipClient;
     private DaydreamWhepClient whepClient;
@@ -111,12 +113,6 @@ public class Daydream : MonoBehaviour
     {
         cam = GetComponent<Camera>();
 
-        if (string.IsNullOrEmpty(apiKey))
-        {
-            Debug.LogWarning("[Daydream] API Key not set. Please enter it in the Inspector.");
-            return;
-        }
-
         resolution = Mathf.Clamp(resolution, 384, 1024);
         resolution = (resolution / 64) * 64;
 
@@ -125,7 +121,57 @@ public class Daydream : MonoBehaviour
 
         SetupCapture();
         SetupDisplay();
-        StartCoroutine(Run());
+
+        if (!string.IsNullOrEmpty(apiKey))
+        {
+            // Manual API key — skip auth
+            StartCoroutine(Run());
+        }
+        else
+        {
+            // Browser login
+            auth = new DaydreamAuth();
+            if (auth.IsLoggedIn)
+            {
+                apiKey = auth.ApiKey;
+                StartCoroutine(Run());
+            }
+            else
+            {
+                state = DaydreamState.Connecting;
+                auth.Login(apiUrl);
+                StartCoroutine(WaitForLogin());
+            }
+        }
+    }
+
+    IEnumerator WaitForLogin()
+    {
+        Debug.Log("[Daydream] Waiting for browser login...");
+
+        while (true)
+        {
+            string result = auth.CheckLoginResult();
+            if (result == null)
+            {
+                yield return null;
+                continue;
+            }
+
+            if (result == "")
+            {
+                // Success
+                apiKey = auth.ApiKey;
+                StartCoroutine(Run());
+            }
+            else
+            {
+                // Failed
+                Debug.LogError($"[Daydream] Login failed: {result}");
+                state = DaydreamState.Error;
+            }
+            yield break;
+        }
     }
 
     void SetupCapture()
@@ -492,6 +538,7 @@ public class Daydream : MonoBehaviour
 
     void OnDestroy()
     {
+        auth?.Cancel();
         whipClient?.Disconnect();
         whepClient?.Disconnect();
 
