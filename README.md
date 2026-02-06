@@ -24,7 +24,7 @@ A real-time AI video processing plugin for Unity. Apply live generative AI effec
 Open **Window > Package Manager**, click **+** > **Add package from git URL...**, and enter:
 
 ```
-https://github.com/livepeer/daydream-unity.git
+https://github.com/daydreamlive/daydream-unity.git
 ```
 
 Also install the [WebRTC package](https://docs.unity3d.com/Packages/com.unity.webrtc@3.0) if not already present.
@@ -41,16 +41,16 @@ The camera output is sent to the Daydream API for AI transformation, and the res
 
 All parameters are exposed in the Inspector on the **Daydream** component:
 
-| Section | Parameters |
-|---------|-----------|
-| **Model** | Model ID, Resolution |
-| **Prompt** | Prompt, Negative Prompt |
-| **Generation** | Guidance Scale, Delta, Seed, Inference Steps, Step Schedule, Noise |
-| **Prompt Schedule** | Weighted prompt entries, Interpolation method |
-| **Seed Schedule** | Weighted seed entries, Interpolation method |
-| **ControlNet** | Model, Conditioning Scale, Preprocessor per ControlNet |
-| **IP Adapter** | Scale, Type, Weight Type, Style Image URL |
-| **Display** | Overlay toggle, PIP toggle, PIP size |
+| Section             | Parameters                                                         |
+| ------------------- | ------------------------------------------------------------------ |
+| **Model**           | Model ID, Resolution                                               |
+| **Prompt**          | Prompt, Negative Prompt                                            |
+| **Generation**      | Guidance Scale, Delta, Seed, Inference Steps, Step Schedule, Noise |
+| **Prompt Schedule** | Weighted prompt entries, Interpolation method                      |
+| **Seed Schedule**   | Weighted seed entries, Interpolation method                        |
+| **ControlNet**      | Model, Conditioning Scale, Preprocessor per ControlNet             |
+| **IP Adapter**      | Scale, Type, Weight Type, Style Image URL                          |
+| **Display**         | Overlay toggle, PIP toggle, PIP size                               |
 
 ### Accessing AI Output Programmatically
 
