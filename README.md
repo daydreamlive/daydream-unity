@@ -32,8 +32,12 @@ Also install the [WebRTC package](https://docs.unity3d.com/Packages/com.unity.we
 ## Usage
 
 1. Add the **Daydream** component to any Camera
-2. Enter your API Key in the Inspector
-3. Press **Play**
+2. Press **Play** — a browser window opens for login
+3. Sign in with your [Daydream](https://daydream.live) account
+
+Credentials are saved to `~/.daydream/credentials` and shared across Daydream plugins (Unity, OBS, TouchDesigner). Subsequent launches skip the login step.
+
+To use an API key directly, paste it into the **API Key** field in the Inspector.
 
 The camera output is sent to the Daydream API for AI transformation, and the result is displayed as a fullscreen overlay. A picture-in-picture view shows the original camera feed.
 

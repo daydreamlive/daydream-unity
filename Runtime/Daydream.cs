@@ -20,8 +20,7 @@ public class Daydream : MonoBehaviour
 {
     [Header("API")]
     public string apiUrl = "https://api.daydream.live";
-    [Tooltip("Leave empty to use browser login (recommended). Set manually to skip login.")]
-    public string apiKey = "";
+    [HideInInspector] public string apiKey = "";
 
     [Header("Model")]
     [Tooltip("stabilityai/sdxl-turbo, stabilityai/sd-turbo, Lykon/dreamshaper-8, prompthero/openjourney-v4")]
